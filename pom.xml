@@ -1,28 +1,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.leiwenjie</groupId>
+	<parent>
+		<groupId>com.leiwenjie</groupId>
+		<artifactId>project</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<artifactId>terse-util</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-
-	<properties>
-		<junit.version>4.12</junit.version>
-		<groboutils.version>5</groboutils.version>
-	</properties>
 
 	<dependencies>
+		<!-- log dependency -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
 		<!-- test dependency start -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency> 
+		<dependency>
 			<groupId>net.sourceforge.groboutils</groupId>
 			<artifactId>groboutils-core</artifactId>
-			<version>${groboutils.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- test dependency end -->
 	</dependencies>
+	<build>
+		<plugins> 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
