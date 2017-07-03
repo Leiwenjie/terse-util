@@ -53,7 +53,7 @@ public class PropertiesUtil {
         try (InputStream in = new BufferedInputStream(new FileInputStream(filePath))) {
             return properties(in);
         } catch (IOException e) {
-            logger.error("load properties error");
+            logger.error("load properties error", e);
         }
         return map;
     }

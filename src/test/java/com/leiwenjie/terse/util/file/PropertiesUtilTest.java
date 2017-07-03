@@ -45,12 +45,12 @@ public class PropertiesUtilTest {
         } catch (Throwable e) {
             e.printStackTrace();
         }
-    }
+    } 
 
     @Test
     public void readPropertiesTest() {
-        Map<String, String> props = PropertiesUtil.getAllProperties("log4j");
-        logger.debug(String.valueOf(props.size()));
+        Map<String, String> props = PropertiesUtil.getAllProperties("/log4j");
+        System.out.println(props.size());
         Assert.assertTrue(props.size() > 0);
 
     }
