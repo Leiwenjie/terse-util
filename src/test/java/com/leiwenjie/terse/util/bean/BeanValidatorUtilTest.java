@@ -1,7 +1,6 @@
-package com.leiwenjie.terse.util;
+package com.leiwenjie.terse.util.bean;
 
-import java.util.Date;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +9,15 @@ import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 import net.sourceforge.groboutils.junit.v1.TestRunnable;
 
 /**
- * test for DateUtil
+ * test for BeanValidatorUtil
  *
  * @author leiwenjie leiwenjie.cn@gmail.com
  * @version 1.0
  * @date 2017年7月3日 下午1:35:48
  */
-public class DateUtilTest {
+public class BeanValidatorUtilTest {
 
-    static final Logger logger = LoggerFactory.getLogger(DateUtilTest.class);
+    static final Logger logger = LoggerFactory.getLogger(BeanValidatorUtilTest.class);
     public static final int threadCount = 20; // 线程数
 
     @Test
@@ -26,7 +25,8 @@ public class DateUtilTest {
         TestRunnable runner = new TestRunnable() {
             @Override
             public void runTest() throws Throwable {
-                dateUtilTest();
+                beanValidatorUtilTest();
+                beanValidatorUtilTest1();
             }
         };
 
@@ -46,22 +46,23 @@ public class DateUtilTest {
     }
 
     @Test
-    public void dateUtilTest() {
-        Date date1 = ThreadSafeDateUtil.getCurrentDate();
-        String date2 = ThreadSafeDateUtil.getCurrentDateStr();
-        String date3 = ThreadSafeDateUtil.getCurrentDateStr(ThreadSafeDateUtil.SIMPLE_TIME_PARRERN);
+    public void beanValidatorUtilTest() {
+        TestBean test1 = new TestBean();
+        test1.setName("张三");
+        test1.setAge(150);
+        test1.setSex(11);
 
-        String date4 = ThreadSafeDateUtil.dateToString(date1);
-        String date5 = ThreadSafeDateUtil.dateToString(date1, ThreadSafeDateUtil.SIMPLE_TIME_PARRERN);
-        Date date6 = ThreadSafeDateUtil.stringToDate(date3, ThreadSafeDateUtil.SIMPLE_TIME_PARRERN);
-        Date date7 = ThreadSafeDateUtil.stringToDate(date2, ThreadSafeDateUtil.SIMPLE_DATE_TIME_PARRERN);
+        logger.debug(BeanValidatorUtil.validate(test1));
+        Assert.assertTrue(!"".equals(BeanValidatorUtil.validate(test1)));
+    }
 
-        logger.debug(date1.toString());
-        logger.debug(date2);
-        logger.debug(date3);
-        logger.debug(date4);
-        logger.debug(date5);
-        logger.debug(date6.toString());
-        logger.debug(date7.toString());
+    @Test
+    public void beanValidatorUtilTest1() {
+        TestBean test2 = new TestBean();
+        test2.setName("李四");
+        test2.setAge(10);
+
+        logger.debug(BeanValidatorUtil.validate(test2, new String[] { "name", "age" }));
+        Assert.assertTrue("".equals(BeanValidatorUtil.validate(test2, new String[] { "name", "age" })));
     }
 }
